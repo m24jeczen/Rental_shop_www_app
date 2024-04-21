@@ -1,0 +1,31 @@
+{% extends 'rent_app/base.html' %}
+
+{% block content %}
+    <h2>Rent Car - {{ selected_car.make }} {{ selected_car.model }} ({{ selected_car.year }})</h2>
+    <form method="post">
+        {% csrf_token %}
+        {% if form.non_field_errors %}
+            <div class="error-message">
+                {% for error in form.non_field_errors %}
+                    {{ error }}
+                {% endfor %}
+            </div>
+        {% endif %}
+        <div>
+            <label for="id_start_date">Start Date:</label>
+            {{ form.start_date }}
+            {% if form_submitted and form.start_date.errors %}
+                <span class="error-message">{{ form.start_date.errors }}</span>
+            {% endif %}
+        </div>
+        <div>
+            <label for="id_end_date">End Date:</label>
+            {{ form.end_date }}
+            {% if form_submitted and form.end_date.errors %}
+                <span class="error-message">{{ form.end_date.errors }}</span>
+            {% endif %}
+        </div>
+        <input type="hidden" name="car" value="{{ selected_car.id }}">
+        <button type="submit" class="button">Rent Car</button>
+    </form>
+{% endblock %}

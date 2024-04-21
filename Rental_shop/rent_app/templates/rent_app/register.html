@@ -1,0 +1,33 @@
+{% extends 'rent_app/base.html' %}
+{% load static %}
+
+{% block content %}
+  <h2>Register</h2>
+  <form method="post" action="{% url 'register' %}" id="registrationForm">
+    {% csrf_token %}
+    <div>
+  <label for="id_username">Username:</label>
+  {{ form.username }}
+  <span id="username_error" class="error-message">{{ form.username.errors }}</span>
+</div>
+<div>
+  <label for="id_email">Email:</label>
+  {{ form.email }}
+  <span id="email_error" class="error-message">{{ form.email.errors }}</span>
+</div>
+<div>
+  <label for="id_password1">Password:</label>
+  {{ form.password1 }}
+  <span id="password1_error" class="error-message">{{ form.password1.errors }}</span>
+</div>
+<div>
+  <label for="id_password2">Confirm Password:</label>
+  {{ form.password2 }}
+  <span id="password2_error" class="error-message">{{ form.password2.errors }}</span>
+</div>
+
+    <button type="submit" class="button">Register</button>
+  </form>
+
+  <script src="{% static 'rent_app/js/register.js' %}"></script>
+{% endblock %}

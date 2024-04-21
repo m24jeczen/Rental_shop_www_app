@@ -1,0 +1,33 @@
+{% extends 'rent_app/base.html' %}
+
+{% load static %}
+{% block content %}
+  <link rel="stylesheet" type="text/css" href="{% static 'rent_app/css/profile.css' %}">
+  <h2>Welcome to Your Profile, {{ user.username }}!</h2>
+
+  {% if rentals %}
+    <h3>Your Rental History:</h3>
+    <ul class="profile-ul">
+      {% for rental in rentals %}
+        <li>{{ rental.car }} - {{ rental.start_date }} to {{ rental.end_date }}</li>
+        <form method="post" action="{% url 'return_car' rental.id %}">
+          {% csrf_token %}
+          <button type="submit" class="button">Return Car</button>
+        </form>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No rental history available.</p>
+  {% endif %}
+  {% if user.is_authenticated and user.is_staff %}
+    <a href="{% url 'export_xml' %}" class="btn">Download XML</a>
+    <a href="{% url 'export_xls' %}" class="btn">Download XLS</a>
+  {% endif %}
+    <h2>Edit Your Profile</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="button">Save Profile</button>
+  </form>
+
+{% endblock %}

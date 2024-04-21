@@ -1,0 +1,15 @@
+{% extends 'rent_app/base.html' %}
+
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'rent_app/css/some_success_page.css' %}">
+{% endblock %}
+
+{% block content %}
+  <div class="success-container">
+    <h1>Account Activation Successful</h1>
+    <p>Your email has been successfully verified. You can now log in and enjoy our services.</p>
+    <a href="{% url 'home' %}" class="home-button">Go to Home Page</a>
+  </div>
+{% endblock %}

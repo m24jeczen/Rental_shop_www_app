@@ -1,0 +1,31 @@
+{% extends 'rent_app/base.html' %}
+{% load static %}
+
+{% block title %}Rent-a-Car{% endblock %}
+
+{% block content %}
+    <main>
+    <button id="info-button" class="button">Show Info</button>
+    <div id="info-container" style="display: none;"></div>
+        {% for car in cars %}
+            <div class="car">
+                <h3>{{ car.make }} {{ car.model }} ({{ car.year }})</h3>
+                <p>Daily Rate: ${{ car.daily_rate }}</p>
+                {% if user.is_authenticated %}
+                    <form action="{% url 'rent_car' car.id %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="rent-button">Rent This Car</button>
+                    </form>
+                {% else %}
+                    <p>You must <a href="{% url 'login' %}">log in</a> or <a href="{% url 'register' %}">create an account</a> to rent a car.</p>
+                {% endif %}
+            </div>
+        {% empty %}
+            <p>No cars available at the moment.</p>
+        {% endfor %}
+    </main>
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{% static 'rent_app/js/scripts.js' %}"></script>
+{% endblock %}

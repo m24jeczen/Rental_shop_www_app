@@ -1,0 +1,41 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'rent_app/css/styles.css' %}">
+    <title>{% block title %}Rent-a-Car{% endblock %}</title>
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <header>
+        <h1>Rent-a-Car</h1>
+    </header>
+
+    <nav>
+        <ul>
+        <li><a href="{% url 'home' %}" class="nav-link">Home</a></li>
+        {% if user.is_authenticated %}
+            <li><a href="{% url 'profile' %}" class="nav-link">Profile</a></li>
+            <li><a href="{% url 'logout' %}" class="nav-link">Logout</a></li>
+        {% else %}
+            <li><a href="{% url 'login' %}" class="nav-link">Login</a></li>
+            <li><a href="{% url 'register' %}" class="nav-link">Register</a></li>
+        {% endif %}
+        </ul>
+    </nav>
+
+
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Rent-a-Car</p>
+    </footer>
+    {% block extra_js %}{% endblock %}
+
+</body>
+</html>

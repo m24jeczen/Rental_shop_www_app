@@ -1,0 +1,20 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Activation</title>
+    <link rel="stylesheet" href="{% static 'rent_app/css/email.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to Rent-a-Car!</h1>
+        <p>Thank you for registering with us. Please click the link below to activate your account:</p>
+        <a href="{{ activation_link }}" class="button">Activate Account</a>
+        <p>If the button doesn't work, please copy and paste the following link in your browser:</p>
+        <p>{{ activation_link }}</p>
+    </div>
+</body>
+</html>
